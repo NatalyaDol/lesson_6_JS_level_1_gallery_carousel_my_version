@@ -1,30 +1,70 @@
-var slideIndex = 1;
-showSlides(slideIndex);
+var imgBig = document.getElementById('my-slides__big-picture');
+var btnPrev = document.getElementById('prev-btn'); 
+var btnNext = document.getElementById('next-btn');
+var album = document.querySelector('.album');
+var galleryItem = document.querySelector('.galleryItem').content;
+//var imgSmall = document.getElementsByClassName('imgThumb__img');
 
-// Next/previous controls
-function plusSlides(n) {
-  showSlides(slideIndex += n);
-}
+//создаем галарею  - картинки снизу  */
+var renderItems = function () {
+  let newItem; // объявим новый элемент
+  let roulette = document.createDocumentFragment (); 
+  /* // создаем рулетку зависимость галереи от  количества изображений. Добавление элементов в рулетку */
 
-// Thumbnail image controls
-function currentSlide(n) {
-  showSlides(slideIndex = n);
-}
-
-function showSlides(n) {
-  var i;
-  var slides = document.getElementsByClassName("mySlides");
-  var dots = document.getElementsByClassName("demo");
-  var captionText = document.getElementById("caption");
-  if (n > slides.length) {slideIndex = 1}
-  if (n < 1) {slideIndex = slides.length}
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";
+  for (let i = 0; i < 8; i++) {
+      
+      newItem = galleryItem.cloneNode(true);
+      //newItem.querySelector('.imgThumb').classList.add('gThumb');
+      newItem.querySelector('.imgThumb').classList.add('thumb' + i);
+      newItem.querySelector('.imgThumb__img').src = "img/background-" + (i + 1) + ".JPG";
+      roulette.appendChild(newItem);
   }
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
+  album.appendChild(roulette);
+};
+renderItems();
+
+
+//Функция, которая определяет цифру в названии файла картинки и возвращает ее
+var findNumbInNameImg = function() {
+  let num;
+  let str = imgBig.src; //cтрока содержащаяся в src картинки Большой
+  
+  return num = parseInt(str[(str.length - 5)]);
+};
+
+//Функция смены главной картинки при клике кнопки next
+var changeSlidesNext = function () {
+  let counter = findNumbInNameImg();
+  if ((counter + 1) < 9) {
+    imgBig.src = "img/background-" + (counter + 1) + ".JPG";
+  } else {
+    counter = 1;
+    imgBig.src = "img/background-" + (counter + 1) + ".JPG";
   }
-  slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
-  captionText.innerHTML = dots[slideIndex-1].alt;
-}
+};
+
+//Функция смены главной картинки при клике кнопки Prev
+var changeSlidesPrev = function () {
+  let counter = findNumbInNameImg();
+  if ((counter - 1) > 0) {
+    imgBig.src = "img/background-" + (counter - 1) + ".JPG";
+  } else {
+    counter = 8;
+    imgBig.src = "img/background-" + (counter - 1) + ".JPG";
+  }
+};
+
+//Функция увеличения картинки при клике на маленькую снизу
+// var galleryApp = function (evt) {
+//   if (evt.target.parentElement.className == 'albumWrapper' || evt.target.classList.contains('imgThumb') == true) {
+//     imgBig.src = evt.target.src; 
+//     console.log('hi');
+    
+//   }  
+// };
+
+
+//window.addEventListener ('click', galleryApp);
+imgBig.addEventListener ('click', changeSlidesNext);
+window.addEventListener ('click', function (evt) {console.log(evt);})
+//imgSmall[0].addEventListener ('click', galleryApp);
