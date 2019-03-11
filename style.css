@@ -1,30 +1,36 @@
-
-  .container {
-    position: relative;
-  }
+body{
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  background: black;
+}
   
   .wrap {
     height: inherit;;
     width: inherit;
     text-align: center;
     cursor: pointer;
+    background-color: #000;
 }
 
 .albumWrapper {
-    width: 100%;
+    /* width: 100%;
     text-align: center;
-
     display: block;
     position: absolute;
-    
+    height: 18%;
+    opacity: 0.08;
+    transition: 0.5s opacity; */
+    display: block;
+    background-color: black;
+    position: absolute;
+    bottom: 0;
     height: 18%;
     opacity: 0.08;
     transition: 0.5s opacity;
 }
-  .cursor {
-    cursor: pointer;
-  }
-  
+
+    
   .prev,
   .next {
     cursor: pointer;
@@ -51,9 +57,6 @@
     background-color: rgba(0, 0, 0, 0.377);
   }
   
-  .album {
-    display: flex;
-  }
   .album:after {
     content: "";
     display: table;
@@ -62,10 +65,18 @@
   
 
 .album {
+    /* display: flex;
     height: 80%;
     margin: 0 auto;
     overflow: hidden;
     display: block; 
+    min-width: 500px;
+    max-width: 90%; */
+
+    height: 80%;
+    margin: 10px auto;
+    overflow: hidden;
+    display: block;
     min-width: 500px;
     max-width: 90%;
 }
@@ -119,11 +130,7 @@ body {
   height: 100vh;
 }
 
-.wrap {
-  height: inherit;;
-  width: inherit;
-  background: #000;
-}
+
 
 .img, 
 .albumWrapper {
@@ -133,15 +140,7 @@ body {
 
 
 
-.albumWrapper {
-  display: block;
-  background: black;
-  /* position: absolute;
-  bottom: 0;
-  height: 18%; */
-  opacity: 0.08;
-  transition: 0.5s opacity;
-}
+
 
 .album {
   height: 80%;
@@ -164,9 +163,7 @@ body {
   margin-left: 5px;
   width: 12%;
   height: 90%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  
   margin: 10px;
   opacity: 0.6;
   transition: 0.2s opacity;
@@ -209,11 +206,4 @@ body {
 .albumArrow:active {
   background: rgba(50, 50, 50, 0.4);
   
-}
-.left {
-  left: 0;
-}
-
-.right {
-  right: 0;
 }
