@@ -3,7 +3,7 @@ var btnPrev = document.getElementById('prev-btn');
 var btnNext = document.getElementById('next-btn');
 var album = document.querySelector('.album');
 var galleryItem = document.querySelector('.galleryItem').content;
-//var imgSmall = document.getElementsByClassName('imgThumb__img');
+var imgSmall = document.getElementById('imgThumb_imgid');
 
 //создаем галарею  - картинки снизу  */
 var renderItems = function () {
@@ -23,19 +23,20 @@ var renderItems = function () {
 };
 renderItems();
 
-
-//Функция, которая определяет цифру в названии файла картинки и возвращает ее
+//Функция, которая определяет цифру в названии файла картинки и возвращает ее значение
+// (ограничение макс 9 файлов)
 var findNumbInNameImg = function() {
-  let num;
   let str = imgBig.src; //cтрока содержащаяся в src картинки Большой
   
-  return num = parseInt(str[(str.length - 5)]);
+  return parseInt(str[(str.length - 5)]);
+  //все файлы называются однотипно и 5й символ с конца это номер файла
+  //минусы этого решения, сломается если картинок больше 9, но можно добавить условия и все будет работать
 };
 
 //Функция смены главной картинки при клике кнопки next
 var changeSlidesNext = function () {
   let counter = findNumbInNameImg();
-  if ((counter + 1) < 9) {
+  if ((counter + 1) < 8) {
     imgBig.src = "img/background-" + (counter + 1) + ".JPG";
   } else {
     counter = 1;
@@ -55,16 +56,12 @@ var changeSlidesPrev = function () {
 };
 
 //Функция увеличения картинки при клике на маленькую снизу
-// var galleryApp = function (evt) {
-//   if (evt.target.parentElement.className == 'albumWrapper' || evt.target.classList.contains('imgThumb') == true) {
-//     imgBig.src = evt.target.src; 
-//     console.log('hi');
-    
-//   }  
-// };
+//через target определяем у картинки путь evt.target.src и присваиваем к большой 
+var galleryApp = function (evt) {
+    imgBig.src = evt.target.src;    
+};
 
-
-//window.addEventListener ('click', galleryApp);
-imgBig.addEventListener ('click', changeSlidesNext);
 window.addEventListener ('click', function (evt) {console.log(evt);})
-//imgSmall[0].addEventListener ('click', galleryApp);
+album.addEventListener ('click', galleryApp);
+imgBig.addEventListener ('click', changeSlidesNext);
+
