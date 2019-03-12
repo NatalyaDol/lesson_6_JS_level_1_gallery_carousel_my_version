@@ -164,7 +164,7 @@ body {
   width: 12%;
   height: 90%;
   
-  margin: 10px;
+  /* margin: 10px; */
   opacity: 0.6;
   transition: 0.2s opacity;
 }
