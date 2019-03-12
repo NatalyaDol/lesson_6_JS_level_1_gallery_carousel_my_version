@@ -20,7 +20,6 @@ var renderItems = function () {
   let newItem; // объявим новый элемент
   let roulette = document.createDocumentFragment (); 
   /* // создаем рулетку зависимость галереи от  количества изображений. Добавление элементов в рулетку */
-
   for (let i = 0; i < imgAll.length; i++) {
       
       newItem = galleryItem.cloneNode(true);
@@ -33,11 +32,20 @@ var renderItems = function () {
 };
 renderItems();
 
+//Функция, которая определяет цифру в названии файла картинки и возвращает ее значение
+// (ограничение макс 9 файлов)
+var findNumbInNameImg = function() {
+  let str = imgBig.src; //cтрока содержащаяся в src картинки Большой
+  return parseInt(str[(str.length - 5)]);
+  //все файлы называются однотипно и 5й символ с конца это номер файла
+  //минусы этого решения, сломается если картинок больше 9, но можно добавить условия и все будет работать
+};
+
 
 //Функция смены главной картинки при клике кнопки next
 var changeSlidesNext = function () {
   let counter = findNumbInNameImg();
-  if ((counter + 1) < 8) {
+  if ((counter + 1) < 9) {
     imgBig.src = "img/background-" + (counter + 1) + ".JPG";
   } else {
     counter = 1;
@@ -45,14 +53,22 @@ var changeSlidesNext = function () {
   }
 };
 
-
+//Функция смены главной картинки при клике кнопки Prev
+var changeSlidesPrev = function () {
+  let counter = findNumbInNameImg();
+  if ((counter - 1) > 0) {
+    imgBig.src = "img/background-" + (counter - 1) + ".JPG";
+  } else {
+    counter = 8;
+    imgBig.src = "img/background-" + (counter - 1) + ".JPG";
+  }
+};
 //Функция увеличения картинки при клике на маленькую снизу
 //через target определяем у картинки путь evt.target.src и присваиваем к большой 
 var galleryApp = function (evt) {
-    imgBig.src = evt.target.src;    
+    imgBig.src = evt.target.src; 
 };
 
 window.addEventListener ('click', function (evt) {console.log(evt);})
 album.addEventListener ('click', galleryApp);
 imgBig.addEventListener ('click', changeSlidesNext);
-
